@@ -4,6 +4,8 @@ import { RdsStack } from './rds-postgresql';
 import { LambdaStack } from './lambda-functions';
 import { ApiGatewayStack } from './api-gateway';
 import { VpcStack } from './vpc-stack';
+import { FrontendStack } from './frontend-stack';
+
 
 const app = new App();
 
@@ -29,9 +31,14 @@ const lambdaStack = new LambdaStack(app, 'LambdaStack', {
 // Create the API Gateway stack
 new ApiGatewayStack(app, 'ApiGatewayStack', lambdaStack.authHandler);
 
+const frontendStack = new FrontendStack(app, 'FrontendStack', {
+  vpc: vpcStack.vpc, // assuming VpcStack exposes `.vpc`
+});
+
 // Add explicit dependencies
 rdsStack.addDependency(vpcStack);
 lambdaStack.addDependency(vpcStack);
 lambdaStack.addDependency(rdsStack);
+frontendStack.addDependency(vpcStack);
 
 app.synth();
