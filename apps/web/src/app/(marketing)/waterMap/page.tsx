@@ -13,7 +13,6 @@ import Image from "next/image";
 import { FaCity } from "react-icons/fa";
 import { PiMapPinAreaBold } from "react-icons/pi";
 
-
 export default function WaterMapPage() {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -66,14 +65,6 @@ export default function WaterMapPage() {
       setSelectedFeatureProps(props);
       mbMap.setFilter('water_boundaries_selected', ['==', ['get', 'PWSID'], featureId]);
 
-    //   const popupNode = document.createElement('div');
-    //   const closePopup = () => popup.remove();
-    //   const root = ReactDOM.createRoot(popupNode);
-    //   root.render(<WaterPopup props={props} onClose={closePopup} />);
-    //   const popup = new mapboxgl.Popup({ closeButton: false, className: "custom-popup" })
-    //     .setLngLat(e.lngLat)
-    //     .setDOMContent(popupNode)
-    //     .addTo(mbMap);
     });
 
     mbMap.on('mouseenter', 'water_boundaries_borders', () => mbMap.getCanvas().style.cursor = 'pointer');
